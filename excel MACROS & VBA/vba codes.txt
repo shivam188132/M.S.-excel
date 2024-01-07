@@ -1,0 +1,217 @@
+code 1
+
+
+
+?ActiveWorkbook.Activesheet.Name
+Sheet1
+
+?Activeworkbook.Activesheet.Name
+Sheet1
+
+'changing the name use double qoute not single'
+
+ActiveWorkbook.ActiveSheet.Name = "Weekly report"
+
+Activesheet.Range("a2").Value = "Hello world"
+
+
+code 2
+
+
+
+Public Sub FunwithVBAprocedures()
+    ' the line below chagnes the value of cell a1
+
+    ActiveSheet.Range("a1").Value = "Hello World"
+
+    'MsgBox (" Hello World2")
+
+    MsgBox (ActiveSheet.Range("d2").Value)
+
+
+End Sub
+
+
+code 3
+
+
+
+
+Public Sub FunwithVBAprocedures()
+    ' the line below chagnes the value of cell a1
+    ActiveSheet.Range("a1").Value = "Hello World"
+    'MsgBox (" Hello World2")
+     MsgBox (ActiveSheet.Range("d2").Value)
+End Sub
+
+Public Sub NoVariables()
+
+    MsgBox ("hello shivam! You are 100 years old")
+    MsgBox ("Shivam, you are born in " & Year(Now()) - 100)
+    MsgBox ("Shivam, in 10 years you will be 110")
+    
+
+End Sub
+
+Public Sub FunWithVariable2()
+
+    'Add variables
+    
+    Dim userName As String  'This is a String (text)
+    Dim userAge As Integer  'This is a numeric
+    
+    userName = "King Shivam"
+    userAge = 100
+    MsgBox ("hello " & userName & " ! You are 100 years old")
+    MsgBox (userName & " , you are born in " & Year(Now()) - 100)
+    MsgBox (usrname & " , in 10 years you will be 110")
+
+
+End Sub
+
+
+code 4
+
+
+Public Sub FunWithLogic2()
+    ' IF logic to determine age
+    If ActiveCell.Value >= 90 Then
+        MsgBox ("User is 90 or older")
+    ElseIf ActiveCell.Value >= 21 Then
+        MsgBox ("User is 21 or older")
+    Else
+        MsgBox ("Not Allowed!")
+    End If
+End Sub
+
+Public Sub FunWithSelect()
+    Select Case ActiveCell.Value
+        Case Is > 90
+            MsgBox (">90")
+        Case 21 To 89
+            MsgBox (">21")
+        Case Else
+            MsgBox ("Not Allowed!")
+    End Select
+End Sub
+
+
+
+Public Sub FunWihLoops()
+ 'Dim i As Integer
+ 'i =1
+ 
+    Do While ActiveCell.Value <> ""
+        FunWithLogic2
+    
+        ActiveCell.Offset(1, 0).Select
+    
+    Loop
+
+End Sub
+
+
+
+
+
+
+Public Sub FunWithLoops3()
+
+    Dim user As Range
+    
+    For Each user In Selection
+        
+        FunWithLogic2
+        ActiveCell.Offset(1, 0).Select
+        
+        Next user
+            
+End Sub
+
+Public Sub FunWithLoops4()
+
+   For i = 1 To ActiveSheet.UsedRange.Rows.Count - 1
+        
+        FunWithLogic2
+        ActiveCell.Offset(1, 0).Select
+        
+        Next i
+        
+End Sub
+
+
+
+code 5
+
+
+Public Sub FunWithInput()
+
+    'get input from the user
+    Dim userInput As String
+    userInput = InputBox("What is your favorite color?", "Favorite color")
+    MsgBox (userInput)
+
+End Sub
+
+Public Sub UserSortInput()
+
+    'get the sort order from the user
+    Dim sortOrder As Integer
+    Dim promptMsg As String
+    Dim tryAgain As Integer
+    
+    On Error GoTo errorHandler
+    
+    'vbcrlf is like a new line character function
+    
+    promptMsg = "How would you like to sort the list?" & vbCrLf & _
+                "1- Sort by Division " & vbCrLf & _
+                "2- Sort by Category " & vbCrLf & _
+                "3- sort by Total"
+                
+    sortOrder = InputBox(promptMsg, "Sort Order")
+    
+    If sortOrder = 1 Then
+        DivisionSort
+    ElseIf sortOrder = 2 Then
+        CategorySort
+    ElseIf sortOrder = 3 Then
+        TotalSort
+    Else
+    'FOR ANY ERRORS LIKE NO INPUT OR A TEXT INPUT IT WILL RETURN 0
+errorHandler:
+        tryAgain = MsgBox("Invalid Value: Try again?", vbYesNo)
+        'for yes excel stores data as 6
+        
+        If tryAgain = 6 Then
+            UserSortInput
+        End If
+        
+        
+    
+    
+    
+    
+    End If
+    
+    
+End Sub
+
+
+Public Sub DivisionSort()
+    'Sorts the list by the division
+    Columns("A:f").Sort key1:=Range("a2"), order1:=xlDescending, Header:=xlYes
+End Sub
+Public Sub CategorySort()
+    'Sorts the list by the category
+    
+    Columns("A:f").Sort key1:=Range("b2"), order1:=xlDescending, Header:=xlYes
+End Sub
+
+Public Sub TotalSort()
+    'Sorts the list by the total
+    Columns("A:f").Sort key1:=Range("f2"), order1:=xlDescending, Header:=xlYes
+End Sub
+
+
+
